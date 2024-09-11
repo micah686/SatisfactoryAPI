@@ -22,7 +22,7 @@ class Program
         try
         {
             // Perform health check
-            var healthStatus = await apiClient.HealthCheck();
+            var healthStatus = await ApiFunctions.HealthCheck(apiClient);
             Console.WriteLine($"Server health: {healthStatus.Health}");
             Console.WriteLine($"Server custom data: {healthStatus.ServerCustomData}");
 
@@ -33,17 +33,9 @@ class Program
             // Set the authentication token for future requests
             apiClient.SetAuthToken(authToken);
 
-            //var data = await apiClient.SendRequest<QueryServerState>("QueryServerState", null);
-            //var objData = await apiClient.SendRequest<GetServerOptions>("GetServerOptions", null);
-            //var objData = await apiClient.SendRequest<RespAdvancedGameSettings>("GetAdvancedGameSettings", null);
+            //======Any main logic below here====
 
-            var renameRequest = new DataRenameServer
-            {
-                ServerName = "LocalDedicatedServer"
-            };
-
-
-            var result = await apiClient.SendRequest<ExpandoObject>("RenameServer", renameRequest);
+            
             //var objData = await apiClient.SendRequest<ExpandoObject>("funcNameHere", null);
 
             //var json = JsonSerializer.Serialize(objData);
