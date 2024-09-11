@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using SatisfactoryAPI.POCO;
+using SatisfactoryAPI.Model;
 
 namespace SatisfactoryAPI;
 
@@ -35,13 +35,13 @@ public class DedicatedServerApiClient
         return await SendRequest<HealthCheckResponse>("HealthCheck", new { ClientCustomData = "" });
     }
 
-    public async Task<string> PasswordLogin(string privilegeLevel, string password)
+    public async Task<string> PasswordLogin(PrivilegeLevel privilegeLevel, string password)
     {
-        var response = await SendRequest<AuthResponse>("PasswordLogin", new { MinimumPrivilegeLevel = privilegeLevel, Password = password });
+        var response = await SendRequest<AuthResponse>("PasswordLogin", new { MinimumPrivilegeLevel = privilegeLevel.ToString(), Password = password });
         return response.AuthenticationToken;
     }
 
-    private async Task<T> SendRequest<T>(string function, object data)
+    public async Task<T> SendRequest<T>(string function, object? data)
     {
         var request = new ApiRequest { Function = function, Data = data };
         var json = JsonSerializer.Serialize(request);

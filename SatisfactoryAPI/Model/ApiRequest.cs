@@ -1,4 +1,4 @@
-﻿namespace SatisfactoryAPI.POCO;
+﻿namespace SatisfactoryAPI.Model;
 
 public class ApiRequest
 {

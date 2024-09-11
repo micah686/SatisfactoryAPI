@@ -1,5 +1,9 @@
-﻿namespace ConsoleApp;
-using SatisfactoryAPI;
+﻿using SatisfactoryAPI;
+using System.Dynamic;
+using System.Text.Json;
+using SatisfactoryAPI.Model;
+
+namespace ConsoleApp;
 
 class Program
 {
@@ -20,11 +24,19 @@ class Program
             Console.WriteLine($"Server custom data: {healthStatus.ServerCustomData}");
 
             // Authenticate
-            var authToken = await apiClient.PasswordLogin("Administrator", adminPassword);
+            var authToken = await apiClient.PasswordLogin(PrivilegeLevel.Administrator, adminPassword);
             Console.WriteLine($"Authentication successful. Token: {authToken}");
 
             // Set the authentication token for future requests
             apiClient.SetAuthToken(authToken);
+
+            //var data = await apiClient.SendRequest<QueryServerState>("QueryServerState", null);
+
+
+
+            var objData = await apiClient.SendRequest<ExpandoObject>("GetServerOptions", null);
+
+            var json = JsonSerializer.Serialize(objData);
 
             // You can now use apiClient for other authenticated requests
         }
