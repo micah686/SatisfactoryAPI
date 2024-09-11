@@ -31,10 +31,12 @@ class Program
             apiClient.SetAuthToken(authToken);
 
             //var data = await apiClient.SendRequest<QueryServerState>("QueryServerState", null);
+            //var objData = await apiClient.SendRequest<GetServerOptions>("GetServerOptions", null);
 
+            
 
-
-            var objData = await apiClient.SendRequest<ExpandoObject>("GetServerOptions", null);
+            var objData = await apiClient.SendRequest<GetAdvancedGameSettings>("GetAdvancedGameSettings", null);
+            //var objData = await apiClient.SendRequest<ExpandoObject>("funcNameHere", null);
 
             var json = JsonSerializer.Serialize(objData);
 
@@ -45,4 +47,10 @@ class Program
             Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
+
+}
+
+public class AAGS
+{
+    public Dictionary<string, string> ApplyAdvancedGameSettings { get; set; }
 }
