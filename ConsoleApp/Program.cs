@@ -1,0 +1,36 @@
+﻿namespace ConsoleApp;
+using SatisfactoryAPI;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        Console.WriteLine("Hello, World!");
+
+        string baseUrl = "https://localhost:7777/api/v1/"; // Replace with your server's address
+        string adminPassword = File.ReadAllText("password.txt"); // Replace with your admin password
+
+        var apiClient = new DedicatedServerApiClient(baseUrl, true);
+
+        try
+        {
+            // Perform health check
+            var healthStatus = await apiClient.HealthCheck();
+            Console.WriteLine($"Server health: {healthStatus.Health}");
+            Console.WriteLine($"Server custom data: {healthStatus.ServerCustomData}");
+
+            // Authenticate
+            var authToken = await apiClient.PasswordLogin("Administrator", adminPassword);
+            Console.WriteLine($"Authentication successful. Token: {authToken}");
+
+            // Set the authentication token for future requests
+            apiClient.SetAuthToken(authToken);
+
+            // You can now use apiClient for other authenticated requests
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+}
