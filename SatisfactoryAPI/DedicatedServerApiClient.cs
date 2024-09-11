@@ -49,6 +49,10 @@ public class DedicatedServerApiClient
 
         var response = await _httpClient.PostAsync("", content);
         response.EnsureSuccessStatusCode();
+        if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        {
+            return default;
+        }
 
         var responseContent = await response.Content.ReadAsStringAsync();
         var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });

@@ -3,6 +3,8 @@ using System.Dynamic;
 using System.Text.Json;
 using SatisfactoryAPI.Model;
 using System.Text.Json.Serialization;
+using System.Diagnostics;
+using SatisfactoryAPI.Model.DataPayloads;
 
 namespace ConsoleApp;
 
@@ -35,12 +37,16 @@ class Program
             //var objData = await apiClient.SendRequest<GetServerOptions>("GetServerOptions", null);
             //var objData = await apiClient.SendRequest<RespAdvancedGameSettings>("GetAdvancedGameSettings", null);
 
+            var renameRequest = new DataRenameServer
+            {
+                ServerName = "LocalDedicatedServer"
+            };
 
 
-            var objData = await apiClient.SendRequest<RespAdvancedGameSettings>("GetAdvancedGameSettings", null);
+            var result = await apiClient.SendRequest<ExpandoObject>("RenameServer", renameRequest);
             //var objData = await apiClient.SendRequest<ExpandoObject>("funcNameHere", null);
 
-            var json = JsonSerializer.Serialize(objData);
+            //var json = JsonSerializer.Serialize(objData);
 
             // You can now use apiClient for other authenticated requests
         }
@@ -51,4 +57,3 @@ class Program
     }
 
 }
-
