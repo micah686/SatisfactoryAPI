@@ -2,6 +2,7 @@
 using System.Dynamic;
 using System.Text.Json;
 using SatisfactoryAPI.Model;
+using System.Text.Json.Serialization;
 
 namespace ConsoleApp;
 
@@ -32,10 +33,11 @@ class Program
 
             //var data = await apiClient.SendRequest<QueryServerState>("QueryServerState", null);
             //var objData = await apiClient.SendRequest<GetServerOptions>("GetServerOptions", null);
+            //var objData = await apiClient.SendRequest<RespAdvancedGameSettings>("GetAdvancedGameSettings", null);
 
-            
 
-            var objData = await apiClient.SendRequest<GetAdvancedGameSettings>("GetAdvancedGameSettings", null);
+
+            var objData = await apiClient.SendRequest<RespAdvancedGameSettings>("GetAdvancedGameSettings", null);
             //var objData = await apiClient.SendRequest<ExpandoObject>("funcNameHere", null);
 
             var json = JsonSerializer.Serialize(objData);
@@ -50,7 +52,3 @@ class Program
 
 }
 
-public class AAGS
-{
-    public Dictionary<string, string> ApplyAdvancedGameSettings { get; set; }
-}

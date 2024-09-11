@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryAPI.Model
 {
-    public class GetServerOptions
+    public class RespServerOptions
     {
         public Dictionary<string, string> ServerOptions { get; set; }
         public Dictionary<string, string> PendingServerOptions { get; set; }

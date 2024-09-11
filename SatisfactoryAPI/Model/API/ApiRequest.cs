@@ -2,6 +2,6 @@
 
 public class ApiRequest
 {
-    public string Function { get; set; }
-    public object Data { get; set; }
+    public string Function { get; set; } = string.Empty;
+    public object? Data { get; set; }
 }

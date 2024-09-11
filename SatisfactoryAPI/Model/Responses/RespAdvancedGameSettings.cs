@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryAPI.Model
 {
-    public class GetAdvancedGameSettings
+    public class RespAdvancedGameSettings
     {
         public bool CreativeModeEnabled { get; set; }
         public Dictionary<string, string> AdvancedGameSettings { get; set; }

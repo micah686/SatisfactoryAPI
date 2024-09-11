@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SatisfactoryAPI.Model
 {
-    public class QueryServerState
+    public class RespServerState
     {
         public ServerGameState serverGameState { get; set; }
     }
