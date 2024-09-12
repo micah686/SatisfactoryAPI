@@ -16,7 +16,7 @@ namespace SatisfactoryAPI.Model.Enums
         GetServerOptions,//-
         GetAdvancedGameSettings,//-
         ApplyAdvancedGameSettings,//-
-        ClaimServer,
+        ClaimServer, //-
         RenameServer,//-
         SetClientPassword,//-
         SetAdminPassword,//-
@@ -28,7 +28,7 @@ namespace SatisfactoryAPI.Model.Enums
         SaveGame, //-
         DeleteSaveFile, //-
         DeleteSaveSession, //-
-        EnumerateSessions,
+        EnumerateSessions, //-
         LoadGame, //-
         UploadSaveGame,
         DownloadSaveGame //-

@@ -13,15 +13,7 @@ namespace SatisfactoryAPI
 {
     public static class ApiFunctions
     {
-        
 
-
-        public static async Task SetAutoLoadSessionName(this DedicatedServerApiClient apiClient, DataAutoLoadSessionName sessionName)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.SetAutoLoadSessionName, sessionName);
-        }
-        
-        
         public static async Task CreateNewGame(this DedicatedServerApiClient apiClient, DataNewGame newGameOptions)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGameOptions);
@@ -30,11 +22,6 @@ namespace SatisfactoryAPI
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.SaveGame, saveGame);
         }
-        
-        
-
-
-
         public static async Task LoadGame(this DedicatedServerApiClient apiClient, DataLoadGame loadGame)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.LoadGame, loadGame);
@@ -44,11 +31,14 @@ namespace SatisfactoryAPI
             return await apiClient.SendRequest<ExpandoObject>(ApiCallName.DownloadSaveGame, downloadSave);
         }
 
+        
 
 
 
 
-        #region working
+
+
+        #region Working APIs
         public static async Task<HealthCheckResponse> HealthCheck(this DedicatedServerApiClient apiClient)
         {
             return await apiClient.SendRequest<HealthCheckResponse>(ApiCallName.HealthCheck, new { ClientCustomData = "" });
@@ -123,6 +113,16 @@ namespace SatisfactoryAPI
         public static async Task DeleteSaveSession(this DedicatedServerApiClient apiClient, DataDeleteSaveSession saveSession)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveSession, saveSession);
+        }
+
+        public static async Task SetAutoLoadSessionName(this DedicatedServerApiClient apiClient, DataAutoLoadSessionName sessionName)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.SetAutoLoadSessionName, sessionName);
+        }
+
+        public static async Task<RespEnumerateSessions> EnumerateSessions(this DedicatedServerApiClient apiClient)
+        {
+            return await apiClient.SendRequest<RespEnumerateSessions>(ApiCallName.EnumerateSessions, null);
         }
 
         #endregion

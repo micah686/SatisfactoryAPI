@@ -38,10 +38,8 @@ class Program
             Debug.WriteLine("Now doing main functions");
 
 
-
-            var data = new DataDeleteSaveSession() { SessionName = "TestSession" };
-
-            await apiClient.DeleteSaveSession(data);
+            var data = await apiClient.EnumerateSessions();
+            
 
 
             //var data2 = await apiClient.DownloadSave(data);
