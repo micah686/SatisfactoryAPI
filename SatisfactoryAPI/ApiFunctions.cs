@@ -34,10 +34,7 @@ namespace SatisfactoryAPI
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGameOptions);
         }
-        public static async Task SaveGame(this DedicatedServerApiClient apiClient, DataSaveGame saveGame)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.SaveGame, saveGame);
-        }
+        
         public static async Task LoadGame(this DedicatedServerApiClient apiClient, DataLoadGame loadGame)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.LoadGame, loadGame);
@@ -124,7 +121,10 @@ namespace SatisfactoryAPI
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.ApplyServerOptions, serverOptions);
         }
         //CreateNewGame
-        //SaveGame
+        public static async Task SaveGame(this DedicatedServerApiClient apiClient, SaveGamePayload saveGame)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.SaveGame, saveGame);
+        }
         public static async Task DeleteSave(this DedicatedServerApiClient apiClient, DeleteSaveFilePayload saveFileName)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveFile, saveFileName);
