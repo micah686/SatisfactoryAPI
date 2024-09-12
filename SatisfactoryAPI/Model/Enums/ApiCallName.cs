@@ -10,8 +10,8 @@ namespace SatisfactoryAPI.Model.Enums
     {
         HealthCheck,//-
         VerifyAuthenticationToken,
-        PasswordlessLogin,
-        PasswordLogin,
+        PasswordlessLogin,//-
+        PasswordLogin, //-
         QueryServerState,//-
         GetServerOptions,//-
         GetAdvancedGameSettings,//-

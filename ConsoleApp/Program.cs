@@ -29,6 +29,7 @@ class Program
             // Authenticate
             var authToken = await ApiFunctions.PasswordLogin(apiClient, PrivilegeLevel.Administrator, adminPassword);
             Console.WriteLine($"Authentication successful. Token: {authToken}");
+           
 
             // Set the authentication token for future requests
             apiClient.SetAuthToken(authToken);
@@ -36,7 +37,14 @@ class Program
             //======Any main logic below here====
             Debug.WriteLine("Now doing main functions");
 
-            var data = apiClient.GetServerState();
+
+
+            var data = new DataDeleteSaveSession() { SessionName = "TestSession" };
+
+            await apiClient.DeleteSaveSession(data);
+
+
+            //var data2 = await apiClient.DownloadSave(data);
 
 
 

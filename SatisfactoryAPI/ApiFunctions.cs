@@ -15,20 +15,13 @@ namespace SatisfactoryAPI
     {
         
 
-        
 
-
-
-        
         public static async Task SetAutoLoadSessionName(this DedicatedServerApiClient apiClient, DataAutoLoadSessionName sessionName)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.SetAutoLoadSessionName, sessionName);
         }
         
-        public static async Task ApplyServerOptions(this DedicatedServerApiClient apiClient, DataServerOptions serverOptions)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.ApplyServerOptions, serverOptions);
-        }
+        
         public static async Task CreateNewGame(this DedicatedServerApiClient apiClient, DataNewGame newGameOptions)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGameOptions);
@@ -37,14 +30,8 @@ namespace SatisfactoryAPI
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.SaveGame, saveGame);
         }
-        public static async Task DeleteSave(this DedicatedServerApiClient apiClient, DataDeleteSaveFile saveFileName)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveFile, saveFileName);
-        }
-        public static async Task DeleteSaveSession(this DedicatedServerApiClient apiClient, DataDeleteSaveSession saveSession)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveSession, saveSession);
-        }
+        
+        
 
 
 
@@ -52,9 +39,9 @@ namespace SatisfactoryAPI
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.LoadGame, loadGame);
         }
-        public static async Task DownloadSave(this DedicatedServerApiClient apiClient, DataDownloadSave downloadSave)
+        public static async Task<ExpandoObject> DownloadSave(this DedicatedServerApiClient apiClient, DataDownloadSave downloadSave)
         {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.DownloadSaveGame, downloadSave);
+            return await apiClient.SendRequest<ExpandoObject>(ApiCallName.DownloadSaveGame, downloadSave);
         }
 
 
@@ -110,6 +97,33 @@ namespace SatisfactoryAPI
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.Shutdown, null);
         }
 
+
+
+        public static async Task<RespPasswordlessLogin> PasswordlessLogin(this DedicatedServerApiClient apiClient, DataPasswordlessLogin login)
+        {
+            return await apiClient.SendRequest<RespPasswordlessLogin>(ApiCallName.PasswordlessLogin, login);
+        }
+
+
+
+        public static async Task<RespClaimServer> ClaimServer(this DedicatedServerApiClient apiClient, DataClaimServer claim)
+        {
+            return await apiClient.SendRequest<RespClaimServer>(ApiCallName.ClaimServer, claim);
+        }
+
+        public static async Task DeleteSave(this DedicatedServerApiClient apiClient, DataDeleteSaveFile saveFileName)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveFile, saveFileName);
+        }
+
+        public static async Task ApplyServerOptions(this DedicatedServerApiClient apiClient, DataServerOptions serverOptions)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.ApplyServerOptions, serverOptions);
+        }
+        public static async Task DeleteSaveSession(this DedicatedServerApiClient apiClient, DataDeleteSaveSession saveSession)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveSession, saveSession);
+        }
 
         #endregion
     }
