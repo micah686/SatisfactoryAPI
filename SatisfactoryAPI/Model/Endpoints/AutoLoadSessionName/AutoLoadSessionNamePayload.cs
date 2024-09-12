@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.DataPayloads
+namespace SatisfactoryAPI.Model.Endpoints.AutoLoadSessionName
 {
-    public class DataDeleteSaveSession
+    public class AutoLoadSessionNamePayload
     {
         public string SessionName { get; set; }
     }

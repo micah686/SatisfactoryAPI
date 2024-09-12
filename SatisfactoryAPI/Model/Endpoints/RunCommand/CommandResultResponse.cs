@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.Responses
+namespace SatisfactoryAPI.Model.Endpoints.RunCommand
 {
-    public class RespCommandResult
+    public class CommandResultResponse
     {
         public string CommandResult { get; set; }
     }

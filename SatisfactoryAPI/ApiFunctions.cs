@@ -1,7 +1,23 @@
 ﻿using SatisfactoryAPI.Model;
 using SatisfactoryAPI.Model.DataPayloads;
+using SatisfactoryAPI.Model.Endpoints.ApplyAdvancedGameSettings;
+using SatisfactoryAPI.Model.Endpoints.ApplyServerOptions;
+using SatisfactoryAPI.Model.Endpoints.AutoLoadSessionName;
+using SatisfactoryAPI.Model.Endpoints.ClaimServer;
+using SatisfactoryAPI.Model.Endpoints.DeleteSaveFile;
+using SatisfactoryAPI.Model.Endpoints.DeleteSaveSession;
+using SatisfactoryAPI.Model.Endpoints.EnumerateSessions;
+using SatisfactoryAPI.Model.Endpoints.GetAdvancedGameSettings;
+using SatisfactoryAPI.Model.Endpoints.GetServerOptions;
+using SatisfactoryAPI.Model.Endpoints.GetServerState;
+using SatisfactoryAPI.Model.Endpoints.HealthCheck;
+using SatisfactoryAPI.Model.Endpoints.PasswordlessLogin;
+using SatisfactoryAPI.Model.Endpoints.PasswordLogin;
+using SatisfactoryAPI.Model.Endpoints.RenameServer;
+using SatisfactoryAPI.Model.Endpoints.RunCommand;
+using SatisfactoryAPI.Model.Endpoints.SetAdminPassword;
+using SatisfactoryAPI.Model.Endpoints.SetClientPassword;
 using SatisfactoryAPI.Model.Enums;
-using SatisfactoryAPI.Model.Responses;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -31,100 +47,130 @@ namespace SatisfactoryAPI
             return await apiClient.SendRequest<ExpandoObject>(ApiCallName.DownloadSaveGame, downloadSave);
         }
 
+
+
         
 
 
 
 
-
-
         #region Working APIs
-        public static async Task<HealthCheckResponse> HealthCheck(this DedicatedServerApiClient apiClient)
-        {
-            return await apiClient.SendRequest<HealthCheckResponse>(ApiCallName.HealthCheck, new { ClientCustomData = "" });
-        }
+       
 
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
+        
+
+
+
+        
+
+
+
+        
+
+        
+
+        
+        
+
+        
+
+        
+
+        #endregion
+
+
+
+        //-----------------------------------------------------------------------------------------------
+        #region Cleaned Up APIs
+        public static async Task<HealthCheckResponse> HealthCheck(this DedicatedServerApiClient apiClient, HealthCheckPayload healthCheck)
+        {
+            return await apiClient.SendRequest<HealthCheckResponse>(ApiCallName.HealthCheck, healthCheck);
+        }
+        //verify authentication
+        public static async Task<PasswordlessLoginResponse> PasswordlessLogin(this DedicatedServerApiClient apiClient, PasswordlessLoginPayload login)
+        {
+            return await apiClient.SendRequest<PasswordlessLoginResponse>(ApiCallName.PasswordlessLogin, login);
+        }
         public static async Task<string> PasswordLogin(this DedicatedServerApiClient apiClient, PrivilegeLevel privilegeLevel, string password)
         {
-            var response = await apiClient.SendRequest<AuthResponse>(ApiCallName.PasswordLogin, new { MinimumPrivilegeLevel = privilegeLevel.ToString(), Password = password });
+            var response = await apiClient.SendRequest<PasswordLoginResponse>(ApiCallName.PasswordLogin, new { MinimumPrivilegeLevel = privilegeLevel.ToString(), Password = password });
             return response.AuthenticationToken;
         }
-        public static async Task<RespServerState> GetServerState(this DedicatedServerApiClient apiClient)
+        public static async Task<ServerStateResponse> GetServerState(this DedicatedServerApiClient apiClient)
         {
-            return await apiClient.SendRequest<RespServerState>(ApiCallName.QueryServerState, null);
+            return await apiClient.SendRequest<ServerStateResponse>(ApiCallName.QueryServerState, null);
         }
-        public static async Task<RespServerOptions> GetServerOptions(this DedicatedServerApiClient apiClient)
+        public static async Task<ServerOptionsResponse> GetServerOptions(this DedicatedServerApiClient apiClient)
         {
-            return await apiClient.SendRequest<RespServerOptions>(ApiCallName.GetServerOptions, null);
+            return await apiClient.SendRequest<ServerOptionsResponse>(ApiCallName.GetServerOptions, null);
         }
-        public static async Task<RespAdvancedGameSettings> GetAdvancedGameSettings(this DedicatedServerApiClient apiClient)
+        public static async Task<AdvancedGameSettingsResponse> GetAdvancedGameSettings(this DedicatedServerApiClient apiClient)
         {
-            return await apiClient.SendRequest<RespAdvancedGameSettings>(ApiCallName.GetAdvancedGameSettings, null);
+            return await apiClient.SendRequest<AdvancedGameSettingsResponse>(ApiCallName.GetAdvancedGameSettings, null);
         }
-        public static async Task ApplyAdvancedGameSettings(this DedicatedServerApiClient apiClient, DataAdvancedGameSettings gameSettings)
+        public static async Task ApplyAdvancedGameSettings(this DedicatedServerApiClient apiClient, AdvancedGameSettingsPayload gameSettings)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.ApplyAdvancedGameSettings, gameSettings);
         }
-
-        public static async Task RenameServer(this DedicatedServerApiClient apiClient, DataRenameServer newServerName)
+        public static async Task<ClaimServerResponse> ClaimServer(this DedicatedServerApiClient apiClient, ClaimServerPayload claim)
+        {
+            return await apiClient.SendRequest<ClaimServerResponse>(ApiCallName.ClaimServer, claim);
+        }
+        public static async Task RenameServer(this DedicatedServerApiClient apiClient, RenameServerPayload newServerName)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.RenameServer, newServerName);
         }
-        public static async Task SetClientPassword(this DedicatedServerApiClient apiClient, DataClientPassword clientPassword)
+        public static async Task SetClientPassword(this DedicatedServerApiClient apiClient, ClientPasswordPayload clientPassword)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.SetClientPassword, clientPassword);
         }
-        public static async Task SetAdminPassword(this DedicatedServerApiClient apiClient, DataAdminPassword adminPassword)
+        public static async Task SetAdminPassword(this DedicatedServerApiClient apiClient, AdminPasswordPayload adminPassword)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.SetAdminPassword, adminPassword);
         }
-        public static async Task<RespCommandResult> RunCommand(this DedicatedServerApiClient apiClient, DataRunCommand runCommand)
+        public static async Task SetAutoLoadSessionName(this DedicatedServerApiClient apiClient, AutoLoadSessionNamePayload sessionName)
         {
-            return await apiClient.SendRequest<RespCommandResult>(ApiCallName.RunCommand, runCommand);
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.SetAutoLoadSessionName, sessionName);
+        }
+        public static async Task<CommandResultResponse> RunCommand(this DedicatedServerApiClient apiClient, RunCommandPayload runCommand)
+        {
+            return await apiClient.SendRequest<CommandResultResponse>(ApiCallName.RunCommand, runCommand);
         }
         public static async Task Shutdown(this DedicatedServerApiClient apiClient)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.Shutdown, null);
         }
-
-
-
-        public static async Task<RespPasswordlessLogin> PasswordlessLogin(this DedicatedServerApiClient apiClient, DataPasswordlessLogin login)
-        {
-            return await apiClient.SendRequest<RespPasswordlessLogin>(ApiCallName.PasswordlessLogin, login);
-        }
-
-
-
-        public static async Task<RespClaimServer> ClaimServer(this DedicatedServerApiClient apiClient, DataClaimServer claim)
-        {
-            return await apiClient.SendRequest<RespClaimServer>(ApiCallName.ClaimServer, claim);
-        }
-
-        public static async Task DeleteSave(this DedicatedServerApiClient apiClient, DataDeleteSaveFile saveFileName)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveFile, saveFileName);
-        }
-
-        public static async Task ApplyServerOptions(this DedicatedServerApiClient apiClient, DataServerOptions serverOptions)
+        public static async Task ApplyServerOptions(this DedicatedServerApiClient apiClient, ServerOptionsPayload serverOptions)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.ApplyServerOptions, serverOptions);
         }
-        public static async Task DeleteSaveSession(this DedicatedServerApiClient apiClient, DataDeleteSaveSession saveSession)
+        //CreateNewGame
+        //SaveGame
+        public static async Task DeleteSave(this DedicatedServerApiClient apiClient, DeleteSaveFilePayload saveFileName)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveFile, saveFileName);
+        }
+        public static async Task DeleteSaveSession(this DedicatedServerApiClient apiClient, DeleteSaveSessionPayload saveSession)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.DeleteSaveSession, saveSession);
         }
-
-        public static async Task SetAutoLoadSessionName(this DedicatedServerApiClient apiClient, DataAutoLoadSessionName sessionName)
+        public static async Task<EnumerateSessionsResponse> EnumerateSessions(this DedicatedServerApiClient apiClient)
         {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.SetAutoLoadSessionName, sessionName);
+            return await apiClient.SendRequest<EnumerateSessionsResponse>(ApiCallName.EnumerateSessions, null);
         }
-
-        public static async Task<RespEnumerateSessions> EnumerateSessions(this DedicatedServerApiClient apiClient)
-        {
-            return await apiClient.SendRequest<RespEnumerateSessions>(ApiCallName.EnumerateSessions, null);
-        }
-
+        //LoadGame
+        //UploadSaveGame
+        //DownloadSaveGame
         #endregion
     }
 }

@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.DataPayloads
+namespace SatisfactoryAPI.Model.Endpoints.ClaimServer
 {
-    public class DataAdminPassword
+    public class ClaimServerResponse
     {
-        public string Password { get; set; }
         public string AuthenticationToken { get; set; }
     }
 }

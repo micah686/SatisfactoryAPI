@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.DataPayloads
+namespace SatisfactoryAPI.Model.Endpoints.SetAdminPassword
 {
-    public class DataClientPassword
+    public class AdminPasswordPayload
     {
         public string Password { get; set; }
+        public string AuthenticationToken { get; set; }
     }
 }

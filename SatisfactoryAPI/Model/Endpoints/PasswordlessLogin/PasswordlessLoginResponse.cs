@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.Responses
+namespace SatisfactoryAPI.Model.Endpoints.PasswordlessLogin
 {
-    public class RespClaimServer
+    public class PasswordlessLoginResponse
     {
         public string AuthenticationToken { get; set; }
     }

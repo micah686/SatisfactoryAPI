@@ -22,7 +22,7 @@ class Program
         try
         {
             // Perform health check
-            var healthStatus = await ApiFunctions.HealthCheck(apiClient);
+            var healthStatus = await ApiFunctions.HealthCheck(apiClient, new SatisfactoryAPI.Model.Endpoints.HealthCheck.HealthCheckPayload());
             Console.WriteLine($"Server health: {healthStatus.Health}");
             Console.WriteLine($"Server custom data: {healthStatus.ServerCustomData}");
 
@@ -38,7 +38,7 @@ class Program
             Debug.WriteLine("Now doing main functions");
 
 
-            var data = await apiClient.EnumerateSessions();
+            var data = await apiClient.GetServerState();
             
 
 

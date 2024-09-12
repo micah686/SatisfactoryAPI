@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.DataPayloads
+namespace SatisfactoryAPI.Model.Endpoints.ApplyServerOptions
 {
-    public class DataServerOptions
+    public class ServerOptionsPayload
     {
         public Dictionary<string, string> UpdatedServerOptions { get; set; }
     }

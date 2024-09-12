@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.DataPayloads
+namespace SatisfactoryAPI.Model.Endpoints.ApplyAdvancedGameSettings
 {
-    public class DataAdvancedGameSettings
+    public class AdvancedGameSettingsPayload
     {
         public Dictionary<string, string> AppliedAdvancedGameSettings { get; set; }
     }

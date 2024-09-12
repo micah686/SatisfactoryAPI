@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SatisfactoryAPI.Model.DataPayloads
+namespace SatisfactoryAPI.Model.Endpoints.RunCommand
 {
-    public class DataDeleteSaveFile
+    public class RunCommandPayload
     {
-        public string SaveName { get; set; }
+        public string Command { get; set; }
     }
 }
