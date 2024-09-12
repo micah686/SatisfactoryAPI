@@ -48,45 +48,11 @@ namespace SatisfactoryAPI
         }
 
 
-
         
 
 
 
 
-        #region Working APIs
-       
-
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
-        
-
-
-
-        
-
-
-
-        
-
-        
-
-        
-        
-
-        
-
-        
-
-        #endregion
 
 
 
@@ -96,7 +62,10 @@ namespace SatisfactoryAPI
         {
             return await apiClient.SendRequest<HealthCheckResponse>(ApiCallName.HealthCheck, healthCheck);
         }
-        //verify authentication
+        public static async Task VerifyAuthenticationToken(this DedicatedServerApiClient apiClient)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.VerifyAuthenticationToken, null);
+        }
         public static async Task<PasswordlessLoginResponse> PasswordlessLogin(this DedicatedServerApiClient apiClient, PasswordlessLoginPayload login)
         {
             return await apiClient.SendRequest<PasswordlessLoginResponse>(ApiCallName.PasswordlessLogin, login);

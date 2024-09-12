@@ -38,7 +38,7 @@ class Program
             Debug.WriteLine("Now doing main functions");
 
 
-            var data = await apiClient.GetServerState();
+            await apiClient.VerifyAuthenticationToken();
             
 
 
