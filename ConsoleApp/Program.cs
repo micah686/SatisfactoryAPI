@@ -27,15 +27,19 @@ class Program
             Console.WriteLine($"Server custom data: {healthStatus.ServerCustomData}");
 
             // Authenticate
-            var authToken = await apiClient.PasswordLogin(PrivilegeLevel.Administrator, adminPassword);
+            var authToken = await ApiFunctions.PasswordLogin(apiClient, PrivilegeLevel.Administrator, adminPassword);
             Console.WriteLine($"Authentication successful. Token: {authToken}");
 
             // Set the authentication token for future requests
             apiClient.SetAuthToken(authToken);
 
             //======Any main logic below here====
+            Debug.WriteLine("Now doing main functions");
 
-            
+            var data = apiClient.GetServerState();
+
+
+
             //var objData = await apiClient.SendRequest<ExpandoObject>("funcNameHere", null);
 
             //var json = JsonSerializer.Serialize(objData);

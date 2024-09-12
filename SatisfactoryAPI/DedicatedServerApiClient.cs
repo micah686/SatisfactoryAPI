@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using SatisfactoryAPI.Model;
+using SatisfactoryAPI.Model.Enums;
 
 namespace SatisfactoryAPI;
 
@@ -30,20 +31,13 @@ public class DedicatedServerApiClient
         _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
     }
 
-    public async Task<HealthCheckResponse> HealthCheck()
-    {
-        return await SendRequest<HealthCheckResponse>("HealthCheck", new { ClientCustomData = "" });
-    }
+    
 
-    public async Task<string> PasswordLogin(PrivilegeLevel privilegeLevel, string password)
-    {
-        var response = await SendRequest<AuthResponse>("PasswordLogin", new { MinimumPrivilegeLevel = privilegeLevel.ToString(), Password = password });
-        return response.AuthenticationToken;
-    }
+    
 
-    public async Task<T> SendRequest<T>(string function, object? data)
+    public async Task<T> SendRequest<T>(ApiCallName function, object? data)
     {
-        var request = new ApiRequest { Function = function, Data = data };
+        var request = new ApiRequest { Function = function.ToString(), Data = data };
         var json = JsonSerializer.Serialize(request);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
