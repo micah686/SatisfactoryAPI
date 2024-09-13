@@ -1,10 +1,6 @@
 ﻿using SatisfactoryAPI;
 using SatisfactoryAPI.Model;
 using System.Diagnostics;
-using SatisfactoryAPI.Model.Endpoints.DownloadSave;
-using SatisfactoryAPI.Model.Endpoints.LoadSave;
-using SatisfactoryAPI.Model.Endpoints.UploadSave;
-using SatisfactoryAPI.Model.InProgress;
 
 namespace ConsoleApp;
 
@@ -22,43 +18,20 @@ class Program
         try
         {
             // Perform health check
-            var healthStatus = await ApiFunctions.HealthCheck(apiClient, new SatisfactoryAPI.Model.Endpoints.HealthCheck.HealthCheckPayload());
+            var healthStatus = await apiClient.HealthCheck(new SatisfactoryAPI.Model.Endpoints.HealthCheck.HealthCheckPayload());
             Console.WriteLine($"Server health: {healthStatus.Health}");
             Console.WriteLine($"Server custom data: {healthStatus.ServerCustomData}");
 
             // Authenticate
             var authToken = await ApiFunctions.PasswordLogin(apiClient, PrivilegeLevel.Administrator, adminPassword);
             Console.WriteLine($"Authentication successful. Token: {authToken}");
-           
-
+            
             // Set the authentication token for future requests
             apiClient.SetAuthToken(authToken);
 
             //======Any main logic below here====
             Debug.WriteLine("Now doing main functions");
-
-            var save1 = "ZZZSaveForAPI"; //northern forest
-            var save2 = "MySave"; //should be rocky
-            var save3 = "Save2"; //should be water
-
-            var ls = new LoadSavePayload()
-            {
-                SaveName = save3,
-                EnableAdvancedGameSettings = false
-            };
-
-            await apiClient.LoadGame(ls);
-
             
-
-
-
-
-
-
-
-            
-
             var state = await apiClient.GetServerState();
             var runState = state.ServerGameState.IsGameRunning ? "Running" : "Not running";
 

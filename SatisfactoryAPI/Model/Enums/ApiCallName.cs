@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace SatisfactoryAPI.Model.Enums
 {
     public enum ApiCallName
@@ -24,13 +19,13 @@ namespace SatisfactoryAPI.Model.Enums
         RunCommand, 
         Shutdown, 
         ApplyServerOptions, 
-        CreateNewGame, //-
+        CreateNewGame, 
         SaveGame, 
         DeleteSaveFile, 
         DeleteSaveSession, 
         EnumerateSessions, 
-        LoadGame, //-
-        UploadSaveGame, //-
+        LoadGame, 
+        UploadSaveGame, 
         DownloadSaveGame 
     }
 }
