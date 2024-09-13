@@ -107,6 +107,53 @@ public class DedicatedServerApiClient
             await saveGameStream.CopyToAsync(fileStream);
         }
     }
+    
+    
+    //===================Upload Save==============================================
+    public async Task SendMultipartRequest(ApiCallName function, object data, Stream fileStream, string fileName)
+    {
+        using (var content = new MultipartFormDataContent())
+        {
+            // Add the JSON part
+            var apiRequest = new ApiRequest { Function = function.ToString(), Data = data };
+            var jsonContent = new StringContent(JsonSerializer.Serialize(apiRequest), System.Text.Encoding.UTF8, "application/json");
+            content.Add(jsonContent, "data");
+
+            // Add the file part
+            var fileContent = new StreamContent(fileStream);
+            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
+            content.Add(fileContent, "saveGameFile", fileName);
+
+            // Send the request
+            var response = await _httpClient.PostAsync("", content);
+
+            // Check for errors
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorResponse = JsonSerializer.Deserialize<ApiResponse<object>>(errorContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                //HandleApiError(errorResponse);
+            }
+            
+            Console.WriteLine($"Response Status: {response.StatusCode}");
+            var responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Response Content: {responseContent}");
+
+            // Handle specific status codes
+            switch (response.StatusCode)
+            {
+                case System.Net.HttpStatusCode.OK:
+                case System.Net.HttpStatusCode.Created:
+                case System.Net.HttpStatusCode.Accepted:
+                case System.Net.HttpStatusCode.NoContent:
+                    // These are all considered successful outcomes
+                    break;
+                default:
+                    //throw new SatisfactoryApiException("unexpected_response", $"Unexpected response status: {response.StatusCode}");
+                break;
+            }
+        }
+    }
 
     
 }

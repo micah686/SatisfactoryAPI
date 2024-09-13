@@ -1,6 +1,7 @@
 ﻿using SatisfactoryAPI;
 using SatisfactoryAPI.Model;
 using System.Diagnostics;
+using SatisfactoryAPI.Model.InProgress;
 
 namespace ConsoleApp;
 
@@ -34,8 +35,24 @@ class Program
             Debug.WriteLine("Now doing main functions");
 
             var saveName = "API_NEW_SAVE";
+            
+            var usr = new UploadSaveGameRequest()
+            {
+                SaveName = "ZZZSaveForAPI",
+                LoadSaveGame = true,
+                EnableAdvancedGameSettings = false
+            };
+            await apiClient.UploadSave("ZZZSaveForAPI.sav", usr);
 
-            await apiClient.DownloadSave("MySave", "Download.sav");
+            // var dng = new DataNewGame()
+            // {
+            //     NewGameData = new ServerNewGameData()
+            //     {
+            //         SessionName = "MyApiSession"
+            //     }
+            // };
+            //
+            // await apiClient.CreateGame(dng);
 
 
 
@@ -43,15 +60,7 @@ class Program
 
 
 
-            //var data2 = await apiClient.DownloadSave(data);
-
-
-
-            //var objData = await apiClient.SendRequest<ExpandoObject>("funcNameHere", null);
-
-            //var json = JsonSerializer.Serialize(objData);
-
-            // You can now use apiClient for other authenticated requests
+            
 
             var state = await apiClient.GetServerState();
             var runState = state.ServerGameState.IsGameRunning ? "Running" : "Not running";
