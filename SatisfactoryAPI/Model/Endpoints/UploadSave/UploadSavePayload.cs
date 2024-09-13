@@ -1,4 +1,4 @@
-﻿namespace SatisfactoryAPI.Model.InProgress;
+﻿namespace SatisfactoryAPI.Model.Endpoints.UploadSave;
 
 public class UploadSaveGameRequest
 {

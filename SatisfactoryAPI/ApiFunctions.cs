@@ -20,6 +20,7 @@ using SatisfactoryAPI.Model.Endpoints.SetClientPassword;
 using SatisfactoryAPI.Model.Enums;
 using System.Dynamic;
 using SatisfactoryAPI.Model.Endpoints.DownloadSave;
+using SatisfactoryAPI.Model.Endpoints.UploadSave;
 using SatisfactoryAPI.Model.InProgress;
 
 namespace SatisfactoryAPI
@@ -27,10 +28,10 @@ namespace SatisfactoryAPI
     public static class ApiFunctions
     {
 
-        public static async Task CreateGame(this DedicatedServerApiClient apiClient, DataNewGame newGame)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGame);
-        }
+        // public static async Task CreateGame(this DedicatedServerApiClient apiClient, DataNewGame newGame)
+        // {
+        //     await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGame);
+        // }
 
 
 

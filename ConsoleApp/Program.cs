@@ -2,6 +2,7 @@
 using SatisfactoryAPI.Model;
 using System.Diagnostics;
 using SatisfactoryAPI.Model.Endpoints.DownloadSave;
+using SatisfactoryAPI.Model.Endpoints.UploadSave;
 using SatisfactoryAPI.Model.InProgress;
 
 namespace ConsoleApp;
