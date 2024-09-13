@@ -25,7 +25,10 @@ namespace SatisfactoryAPI
     public static class ApiFunctions
     {
 
-        
+        public static async Task DownloadSave(this DedicatedServerApiClient apiClient, string saveName, string exportLocationPath)
+        {
+            await apiClient.SaveDownloadedSaveGame(saveName, exportLocationPath);
+        }
 
 
 

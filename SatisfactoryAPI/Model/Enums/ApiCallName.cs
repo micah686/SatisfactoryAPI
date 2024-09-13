@@ -8,29 +8,29 @@ namespace SatisfactoryAPI.Model.Enums
 {
     public enum ApiCallName
     {
-        HealthCheck,//-
+        HealthCheck,
         VerifyAuthenticationToken,
-        PasswordlessLogin,//-
-        PasswordLogin, //-
-        QueryServerState,//-
-        GetServerOptions,//-
-        GetAdvancedGameSettings,//-
-        ApplyAdvancedGameSettings,//-
-        ClaimServer, //-
-        RenameServer,//-
-        SetClientPassword,//-
-        SetAdminPassword,//-
-        SetAutoLoadSessionName, //-
-        RunCommand, //-
-        Shutdown, //-
-        ApplyServerOptions, //-
+        PasswordlessLogin,
+        PasswordLogin, 
+        QueryServerState,
+        GetServerOptions,
+        GetAdvancedGameSettings,
+        ApplyAdvancedGameSettings,
+        ClaimServer, 
+        RenameServer,
+        SetClientPassword,
+        SetAdminPassword,
+        SetAutoLoadSessionName, 
+        RunCommand, 
+        Shutdown, 
+        ApplyServerOptions, 
         CreateNewGame, //-
-        SaveGame, //-
-        DeleteSaveFile, //-
-        DeleteSaveSession, //-
-        EnumerateSessions, //-
+        SaveGame, 
+        DeleteSaveFile, 
+        DeleteSaveSession, 
+        EnumerateSessions, 
         LoadGame, //-
-        UploadSaveGame,
-        DownloadSaveGame //-
+        UploadSaveGame, //-
+        DownloadSaveGame 
     }
 }

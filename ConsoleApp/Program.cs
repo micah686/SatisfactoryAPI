@@ -35,6 +35,8 @@ class Program
 
             var saveName = "API_NEW_SAVE";
 
+            await apiClient.DownloadSave("MySave", "Download.sav");
+
 
 
 
