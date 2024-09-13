@@ -20,6 +20,7 @@ using SatisfactoryAPI.Model.Endpoints.SetClientPassword;
 using SatisfactoryAPI.Model.Enums;
 using System.Dynamic;
 using SatisfactoryAPI.Model.Endpoints.DownloadSave;
+using SatisfactoryAPI.Model.Endpoints.LoadSave;
 using SatisfactoryAPI.Model.Endpoints.UploadSave;
 using SatisfactoryAPI.Model.InProgress;
 
@@ -32,6 +33,8 @@ namespace SatisfactoryAPI
         // {
         //     await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGame);
         // }
+        
+        
 
 
 
@@ -124,7 +127,10 @@ namespace SatisfactoryAPI
         {
             return await apiClient.SendRequest<EnumerateSessionsResponse>(ApiCallName.EnumerateSessions, null);
         }
-        //LoadGame
+        public static async Task LoadGame(this DedicatedServerApiClient apiClient, LoadSavePayload loadSavePayload)
+        {
+            await apiClient.SendRequest<ExpandoObject>(ApiCallName.LoadGame, loadSavePayload);
+        }
         public static async Task UploadSave(this DedicatedServerApiClient apiClient, string filePath, UploadSaveGameRequest uploadSave)
         {
             await using var fs = File.OpenRead(filePath);

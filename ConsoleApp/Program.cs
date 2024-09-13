@@ -2,6 +2,7 @@
 using SatisfactoryAPI.Model;
 using System.Diagnostics;
 using SatisfactoryAPI.Model.Endpoints.DownloadSave;
+using SatisfactoryAPI.Model.Endpoints.LoadSave;
 using SatisfactoryAPI.Model.Endpoints.UploadSave;
 using SatisfactoryAPI.Model.InProgress;
 
@@ -36,25 +37,17 @@ class Program
             //======Any main logic below here====
             Debug.WriteLine("Now doing main functions");
 
-            var saveName = "API_NEW_SAVE";
-            
-            var usr = new UploadSaveGameRequest()
+            var save1 = "ZZZSaveForAPI"; //northern forest
+            var save2 = "MySave"; //should be rocky
+            var save3 = "Save2"; //should be water
+
+            var ls = new LoadSavePayload()
             {
-                SaveName = "ZZZSaveForAPI",
-                LoadSaveGame = true,
+                SaveName = save3,
                 EnableAdvancedGameSettings = false
             };
-            await apiClient.UploadSave("ZZZSaveForAPI.sav", usr);
 
-            // var dng = new DataNewGame()
-            // {
-            //     NewGameData = new ServerNewGameData()
-            //     {
-            //         SessionName = "MyApiSession"
-            //     }
-            // };
-            //
-            // await apiClient.CreateGame(dng);
+            await apiClient.LoadGame(ls);
 
             
 

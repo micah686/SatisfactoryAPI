@@ -44,21 +44,34 @@ public class DedicatedServerApiClient
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
         var response = await _httpClient.PostAsync("", content);
-        response.EnsureSuccessStatusCode();
-        if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
+        if (!response.IsSuccessStatusCode)
         {
-            return default;
+            var errorContent = await response.Content.ReadAsStringAsync();
+            var errorResponse = JsonSerializer.Deserialize<ApiResponse<object>>(errorContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            HandleApiError.HandleError(errorResponse);
         }
-
         var responseContent = await response.Content.ReadAsStringAsync();
-        var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-
-        if (apiResponse.ErrorCode != null)
+        if (!string.IsNullOrEmpty(responseContent))
         {
-            throw new Exception($"API Error: {apiResponse.ErrorCode} - {apiResponse.ErrorMessage}");
+            var apiResponse = JsonSerializer.Deserialize<ApiResponse<T>>(responseContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            if (apiResponse.ErrorCode != null)
+            {
+                throw new Exception($"API Error: {apiResponse.ErrorCode} - {apiResponse.ErrorMessage}");
+            }
+            return apiResponse.Data;
         }
 
-        return apiResponse.Data;
+        switch (response.StatusCode)
+        {
+            case System.Net.HttpStatusCode.OK:
+            case System.Net.HttpStatusCode.Created:
+            case System.Net.HttpStatusCode.Accepted:
+            case System.Net.HttpStatusCode.NoContent:
+                // These are all considered successful outcomes
+                return default;
+            default:
+                throw new ApiException("unexpected_response", $"Unexpected response status: {response.StatusCode}");
+        }
     }
     
     internal async Task<HttpResponseMessage> DownloadSave(ApiCallName function, object data)
