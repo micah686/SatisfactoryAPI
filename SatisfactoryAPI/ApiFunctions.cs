@@ -19,6 +19,7 @@ using SatisfactoryAPI.Model.Endpoints.SetAdminPassword;
 using SatisfactoryAPI.Model.Endpoints.SetClientPassword;
 using SatisfactoryAPI.Model.Enums;
 using System.Dynamic;
+using SatisfactoryAPI.Model.Endpoints.DownloadSave;
 using SatisfactoryAPI.Model.InProgress;
 
 namespace SatisfactoryAPI
@@ -26,10 +27,10 @@ namespace SatisfactoryAPI
     public static class ApiFunctions
     {
 
-        public static async Task DownloadSave(this DedicatedServerApiClient apiClient, string saveName, string exportLocationPath)
-        {
-            await apiClient.SaveDownloadedSaveGame(saveName, exportLocationPath);
-        }
+        
+        
+        
+        
         
         public static async Task UploadSave(this DedicatedServerApiClient apiClient, string filePath, UploadSaveGameRequest uploadSave)
         {
@@ -135,7 +136,13 @@ namespace SatisfactoryAPI
         }
         //LoadGame
         //UploadSaveGame
-        //DownloadSaveGame
+        public static async Task DownloadSave(this DedicatedServerApiClient apiClient, DownloadSavePayload save, string exportLocationPath)
+        {
+            var response = await apiClient.DownloadSave(ApiCallName.DownloadSaveGame, save);
+            await using var saveGameStream = await response.Content.ReadAsStreamAsync();
+            await using var fileStream = File.Create(exportLocationPath);
+            await saveGameStream.CopyToAsync(fileStream);
+        }
         #endregion
     }
 }
