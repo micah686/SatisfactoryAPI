@@ -27,17 +27,6 @@ namespace SatisfactoryAPI
     public static class ApiFunctions
     {
 
-        
-        
-        
-        
-        
-        public static async Task UploadSave(this DedicatedServerApiClient apiClient, string filePath, UploadSaveGameRequest uploadSave)
-        {
-            await using var fs = File.OpenRead(filePath);
-            await apiClient.SendMultipartRequest(ApiCallName.UploadSaveGame, uploadSave, fs, uploadSave.SaveName);
-        }
-        
         public static async Task CreateGame(this DedicatedServerApiClient apiClient, DataNewGame newGame)
         {
             await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGame);
@@ -135,7 +124,11 @@ namespace SatisfactoryAPI
             return await apiClient.SendRequest<EnumerateSessionsResponse>(ApiCallName.EnumerateSessions, null);
         }
         //LoadGame
-        //UploadSaveGame
+        public static async Task UploadSave(this DedicatedServerApiClient apiClient, string filePath, UploadSaveGameRequest uploadSave)
+        {
+            await using var fs = File.OpenRead(filePath);
+            await apiClient.UploadSaveFile(ApiCallName.UploadSaveGame, uploadSave, fs, uploadSave.SaveName);
+        }
         public static async Task DownloadSave(this DedicatedServerApiClient apiClient, DownloadSavePayload save, string exportLocationPath)
         {
             var response = await apiClient.DownloadSave(ApiCallName.DownloadSaveGame, save);

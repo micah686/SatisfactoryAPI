@@ -37,7 +37,7 @@ public class DedicatedServerApiClient
 
     
 
-    public async Task<T> SendRequest<T>(ApiCallName function, object? data)
+    internal async Task<T> SendRequest<T>(ApiCallName function, object? data)
     {
         var request = new ApiRequest { Function = function.ToString(), Data = data };
         var json = JsonSerializer.Serialize(request);
@@ -60,7 +60,6 @@ public class DedicatedServerApiClient
 
         return apiResponse.Data;
     }
-    
     
     internal async Task<HttpResponseMessage> DownloadSave(ApiCallName function, object data)
     {
@@ -85,12 +84,8 @@ public class DedicatedServerApiClient
         }
         return response;
     }
-    
-    
-    
-    
-    //===================Upload Save==============================================
-    public async Task SendMultipartRequest(ApiCallName function, object data, Stream fileStream, string fileName)
+
+    internal async Task UploadSaveFile(ApiCallName function, object data, Stream fileStream, string fileName)
     {
         using (var content = new MultipartFormDataContent())
         {
@@ -112,7 +107,7 @@ public class DedicatedServerApiClient
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
                 var errorResponse = JsonSerializer.Deserialize<ApiResponse<object>>(errorContent, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                //HandleApiError(errorResponse);
+                HandleApiError.HandleError(errorResponse);
             }
             
             Console.WriteLine($"Response Status: {response.StatusCode}");
@@ -129,11 +124,8 @@ public class DedicatedServerApiClient
                     // These are all considered successful outcomes
                     break;
                 default:
-                    //throw new SatisfactoryApiException("unexpected_response", $"Unexpected response status: {response.StatusCode}");
-                break;
+                    throw new ApiException("unexpected_response", $"Unexpected response status: {response.StatusCode}");
             }
         }
     }
-
-    
 }
