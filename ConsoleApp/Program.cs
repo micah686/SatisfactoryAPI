@@ -36,7 +36,7 @@ class Program
             var saveName = "API_NEW_SAVE";
 
 
-            
+
 
 
 
@@ -50,6 +50,14 @@ class Program
             //var json = JsonSerializer.Serialize(objData);
 
             // You can now use apiClient for other authenticated requests
+
+            var state = await apiClient.GetServerState();
+            var runState = state.ServerGameState.IsGameRunning ? "Running" : "Not running";
+
+            Console.WriteLine();
+            Console.WriteLine($"Server session \"{state.ServerGameState.ActiveSessionName}\" is {runState}");
+            Console.WriteLine($"Active Players: {state.ServerGameState.NumConnectedPlayers}/{state.ServerGameState.PlayerLimit}");
+            Console.WriteLine($"Current Tier: {state.ServerGameState.TechTier}");
         }
         catch (Exception ex)
         {
