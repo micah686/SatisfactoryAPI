@@ -7,7 +7,6 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using SatisfactoryAPI.Model;
 using SatisfactoryAPI.Model.Enums;
-using SatisfactoryAPI.Model.Requests;
 
 namespace SatisfactoryAPI;
 
