@@ -1,5 +1,4 @@
 ﻿using SatisfactoryAPI.Model;
-using SatisfactoryAPI.Model.DataPayloads;
 using SatisfactoryAPI.Model.Endpoints.ApplyAdvancedGameSettings;
 using SatisfactoryAPI.Model.Endpoints.ApplyServerOptions;
 using SatisfactoryAPI.Model.Endpoints.AutoLoadSessionName;
@@ -15,37 +14,19 @@ using SatisfactoryAPI.Model.Endpoints.PasswordlessLogin;
 using SatisfactoryAPI.Model.Endpoints.PasswordLogin;
 using SatisfactoryAPI.Model.Endpoints.RenameServer;
 using SatisfactoryAPI.Model.Endpoints.RunCommand;
+using SatisfactoryAPI.Model.Endpoints.SaveGame;
 using SatisfactoryAPI.Model.Endpoints.SetAdminPassword;
 using SatisfactoryAPI.Model.Endpoints.SetClientPassword;
 using SatisfactoryAPI.Model.Enums;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SatisfactoryAPI
 {
     public static class ApiFunctions
     {
 
-        public static async Task CreateNewGame(this DedicatedServerApiClient apiClient, DataNewGame newGameOptions)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.CreateNewGame, newGameOptions);
-        }
         
-        public static async Task LoadGame(this DedicatedServerApiClient apiClient, DataLoadGame loadGame)
-        {
-            await apiClient.SendRequest<ExpandoObject>(ApiCallName.LoadGame, loadGame);
-        }
-        public static async Task<ExpandoObject> DownloadSave(this DedicatedServerApiClient apiClient, DataDownloadSave downloadSave)
-        {
-            return await apiClient.SendRequest<ExpandoObject>(ApiCallName.DownloadSaveGame, downloadSave);
-        }
 
-
-        
 
 
 

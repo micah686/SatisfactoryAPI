@@ -1,10 +1,6 @@
 ﻿using SatisfactoryAPI;
-using System.Dynamic;
-using System.Text.Json;
 using SatisfactoryAPI.Model;
-using System.Text.Json.Serialization;
 using System.Diagnostics;
-using SatisfactoryAPI.Model.DataPayloads;
 
 namespace ConsoleApp;
 
@@ -37,9 +33,12 @@ class Program
             //======Any main logic below here====
             Debug.WriteLine("Now doing main functions");
 
+            var saveName = "API_NEW_SAVE";
 
-            await apiClient.VerifyAuthenticationToken();
+
             
+
+
 
 
             //var data2 = await apiClient.DownloadSave(data);
