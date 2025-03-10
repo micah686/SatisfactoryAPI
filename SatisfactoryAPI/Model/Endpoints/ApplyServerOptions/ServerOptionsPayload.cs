@@ -8,6 +8,6 @@ namespace SatisfactoryAPI.Model.Endpoints.ApplyServerOptions
 {
     public class ServerOptionsPayload
     {
-        public Dictionary<string, string> UpdatedServerOptions { get; set; }
+        public Dictionary<string, string> UpdatedServerOptions { get; set; } = new Dictionary<string, string>();
     }
 }
